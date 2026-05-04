@@ -68,7 +68,8 @@ const Products = () => {
         </Button>
       </header>
 
-      <div className="bg-white rounded-lg border border-border overflow-hidden">
+      {/* Desktop Table */}
+      <div className="hidden md:block bg-white rounded-lg border border-border overflow-hidden">
         <table className="w-full text-left">
           <thead>
             <tr className="bg-slate-50 text-xs font-bold text-slate-400 uppercase tracking-widest">
@@ -130,6 +131,49 @@ const Products = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Cards */}
+      <div className="md:hidden space-y-4">
+        {products.map((product) => (
+          <div key={product.id} className="bg-white rounded-lg border border-border p-4 flex flex-col gap-4 shadow-sm">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-md overflow-hidden flex-shrink-0 border border-slate-100">
+                <img src={product.image} className="w-full h-full object-cover" alt="" />
+              </div>
+              <div className="flex-grow min-w-0">
+                <div className="font-bold text-slate-800 text-sm line-clamp-1">{product.name}</div>
+                <div className="text-xs text-muted mb-1 line-clamp-1">{categories.find(c => c.id === product.category)?.name || 'Uncategorized'}</div>
+                <div className="font-black text-slate-900 text-sm">₦{product.price.toLocaleString()}</div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center pt-3 border-t border-slate-100">
+              <button 
+                onClick={() => updateProduct(product.id, { available: !product.available })}
+                className={`
+                  px-3 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wider transition-colors
+                  ${product.available ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}
+                `}
+              >
+                {product.available ? 'Available' : 'Out of Stock'}
+              </button>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => handleOpenModal(product)}
+                  className="p-2 border border-border rounded-md text-slate-500 hover:text-primary transition-all"
+                >
+                  <Icon name="Edit01Icon" size={16} />
+                </button>
+                <button 
+                  onClick={() => { if(confirm('Delete this product?')) deleteProduct(product.id) }}
+                  className="p-2 border border-border rounded-md text-slate-500 hover:text-red-500 transition-all"
+                >
+                  <Icon name="Delete02Icon" size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Product Edit Modal */}

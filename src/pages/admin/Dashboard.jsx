@@ -76,7 +76,8 @@ const Dashboard = () => {
             <h3 className="text-base font-bold">Recent Orders</h3>
             <button className="text-primary font-bold text-sm hover:underline">View All</button>
           </div>
-          <div className="overflow-x-auto">
+          {/* Desktop Table */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full text-left">
               <thead>
                 <tr className="bg-slate-50 text-xs font-bold text-slate-400 uppercase tracking-widest">
@@ -115,6 +116,32 @@ const Dashboard = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile Cards */}
+          <div className="md:hidden flex flex-col divide-y divide-border">
+            {recentOrders.map((order) => (
+              <div key={order.id} className="p-4 flex flex-col gap-3">
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-slate-900 text-sm">#{order.id}</span>
+                  <span className="font-black text-slate-900 text-sm">₦{order.total.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <div className="font-medium text-slate-700 text-sm">{order.customer.name}</div>
+                    <div className="text-xs text-muted mt-0.5">{order.customer.phone}</div>
+                  </div>
+                  <span className={`
+                    px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider
+                    ${order.status === 'pending' ? 'bg-orange-100 text-orange-600' : 
+                      order.status === 'delivered' ? 'bg-green-100 text-green-600' : 
+                      'bg-blue-100 text-blue-600'}
+                  `}>
+                    {order.status}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
