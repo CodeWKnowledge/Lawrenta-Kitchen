@@ -24,10 +24,10 @@ const ProductCard = ({ product, onClick }) => {
       </div>
       
       <div className="p-5 flex flex-col flex-grow">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-1">
+        <div className="flex flex-col md:flex-row  items-start mb-2">
+          <h4 className="font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-1">
             {product.name}
-          </h3>
+          </h4>
           <span className="text-primary font-black whitespace-nowrap ml-2">
             ₦{product.price.toLocaleString()}
           </span>
