@@ -41,7 +41,7 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard 
           title="Total Revenue" 
-          value={`$${revenue.toLocaleString()}`} 
+          value={`₦${revenue.toLocaleString()}`} 
           icon="Money01Icon" 
           trend={12} 
           color="bg-primary-light text-primary"
